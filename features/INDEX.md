@@ -12,7 +12,7 @@
 
 | ID | Feature | Status | Spec | Created |
 |----|---------|--------|------|---------|
-| PROJ-1 | Familienmitglieder-Verwaltung | In Progress | [PROJ-1-family-member-management.md](PROJ-1-family-member-management.md) | 2026-03-15 |
+| PROJ-1 | Familienmitglieder-Verwaltung | In Review | [PROJ-1-family-member-management.md](PROJ-1-family-member-management.md) | 2026-03-15 |
 | PROJ-2 | Familien-Übersichtsdashboard | Planned | [PROJ-2-family-overview-dashboard.md](PROJ-2-family-overview-dashboard.md) | 2026-03-15 |
 | PROJ-3 | Persönliches Mitglieder-Dashboard | Planned | [PROJ-3-personal-member-dashboard.md](PROJ-3-personal-member-dashboard.md) | 2026-03-15 |
 | PROJ-4 | Aufgaben-Verwaltung | Planned | [PROJ-4-task-management.md](PROJ-4-task-management.md) | 2026-03-15 |
