@@ -1,6 +1,9 @@
 "use client";
 
 import { FamilyMembersProvider, useFamilyMembers } from "@/hooks/useFamilyMembers";
+import { ActiveMemberProvider } from "@/contexts/ActiveMemberContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeApplier } from "./ThemeApplier";
 import { Header } from "./Header";
 import { OnboardingDialog } from "@/components/members/OnboardingDialog";
 import type { ReactNode } from "react";
@@ -12,7 +15,12 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
   return (
     <FamilyMembersProvider>
-      <AppShellContent>{children}</AppShellContent>
+      <ThemeProvider>
+        <ActiveMemberProvider>
+          <ThemeApplier />
+          <AppShellContent>{children}</AppShellContent>
+        </ActiveMemberProvider>
+      </ThemeProvider>
     </FamilyMembersProvider>
   );
 }

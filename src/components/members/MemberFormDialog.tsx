@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { MEMBER_COLORS, type FamilyMember } from "@/hooks/useFamilyMembers";
+import { useTheme, THEME_OPTIONS, type ThemeValue } from "@/contexts/ThemeContext";
 import { AlertTriangle } from "lucide-react";
 
 interface MemberFormDialogProps {
@@ -25,7 +26,7 @@ interface MemberFormDialogProps {
     role: "parent" | "child";
     color: string;
     avatar?: string;
-  }) => { success: boolean; error?: string };
+  }) => { success: boolean; error?: string; member?: FamilyMember };
   hasDuplicateName: (name: string, excludeId?: string) => boolean;
   /** If true, the dialog cannot be dismissed (used during onboarding) */
   forceOpen?: boolean;
@@ -45,8 +46,10 @@ export function MemberFormDialog({
   const [name, setName] = useState("");
   const [role, setRole] = useState<"parent" | "child">("parent");
   const [color, setColor] = useState<string>(MEMBER_COLORS[0]);
+  const [selectedTheme, setSelectedTheme] = useState<ThemeValue>("standard");
   const [formError, setFormError] = useState<string | null>(null);
   const [showDuplicateWarning, setShowDuplicateWarning] = useState(false);
+  const { getTheme, setTheme: saveTheme } = useTheme();
 
   const isEditing = !!member;
 
@@ -57,15 +60,17 @@ export function MemberFormDialog({
         setName(member.name);
         setRole(member.role);
         setColor(member.color);
+        setSelectedTheme(getTheme(member.id));
       } else {
         setName("");
         setRole(forceParentRole ? "parent" : "parent");
         setColor(MEMBER_COLORS[0]);
+        setSelectedTheme("standard");
       }
       setFormError(null);
       setShowDuplicateWarning(false);
     }
-  }, [open, member, forceParentRole]);
+  }, [open, member, forceParentRole, getTheme]);
 
   // Check for duplicate names in real-time
   useEffect(() => {
@@ -92,6 +97,12 @@ export function MemberFormDialog({
 
     const result = onSave({ name: trimmedName, role, color });
     if (result.success) {
+      // Save theme for this member
+      if (member) {
+        saveTheme(member.id, selectedTheme);
+      } else if (result.member) {
+        saveTheme(result.member.id, selectedTheme);
+      }
       onOpenChange(false);
     } else {
       setFormError(result.error ?? "Unbekannter Fehler.");
@@ -197,6 +208,32 @@ export function MemberFormDialog({
                     aria-label={`Farbe ${c}`}
                     aria-pressed={color === c}
                   />
+                ))}
+              </div>
+            </div>
+
+            {/* Theme selection */}
+            <div className="grid gap-2">
+              <Label>Design-Theme</Label>
+              <div className="grid gap-2">
+                {THEME_OPTIONS.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    className={cn(
+                      "flex flex-col items-start rounded-lg border-2 px-3 py-2 text-left transition-colors hover:bg-accent/50",
+                      selectedTheme === option.value
+                        ? "border-primary bg-primary/5"
+                        : "border-transparent bg-muted/50"
+                    )}
+                    onClick={() => setSelectedTheme(option.value)}
+                    aria-pressed={selectedTheme === option.value}
+                  >
+                    <span className="text-sm font-medium">{option.label}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {option.description}
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>

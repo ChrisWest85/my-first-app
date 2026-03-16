@@ -228,6 +228,31 @@ export function FamilyMembersProvider({ children: providerChildren }: { children
               }
             }
           }
+
+          // Kanban: unassign cards (keep card, remove assignment)
+          const kanbanCardsRaw = localStorage.getItem("kanban_cards");
+          if (kanbanCardsRaw) {
+            const kanbanCards = JSON.parse(kanbanCardsRaw);
+            if (Array.isArray(kanbanCards)) {
+              const cleaned = kanbanCards.map(
+                (card: Record<string, unknown>) =>
+                  card.assignedMemberId === id
+                    ? { ...card, assignedMemberId: undefined }
+                    : card
+              );
+              localStorage.setItem("kanban_cards", JSON.stringify(cleaned));
+            }
+          }
+
+          // Clean up theme for deleted member
+          const themesRaw = localStorage.getItem("familyThemes");
+          if (themesRaw) {
+            const themes = JSON.parse(themesRaw);
+            if (typeof themes === "object" && themes !== null) {
+              delete themes[id];
+              localStorage.setItem("familyThemes", JSON.stringify(themes));
+            }
+          }
         } catch {
           // Non-critical: related data cleanup failed silently
         }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Menu, Settings, Users } from "lucide-react";
+import { Home, Kanban, Menu, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { MemberAvatar } from "@/components/members/MemberAvatar";
+import { useActiveMember } from "@/contexts/ActiveMemberContext";
 import type { FamilyMember } from "@/hooks/useFamilyMembers";
 
 interface HeaderProps {
@@ -29,12 +30,14 @@ interface HeaderProps {
 
 const navItems = [
   { href: "/", label: "Uebersicht", icon: Home },
+  { href: "/kanban", label: "Kanban", icon: Kanban },
   { href: "/settings", label: "Einstellungen", icon: Settings },
 ];
 
 export function Header({ members, isLoading }: HeaderProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { activeMember, setActiveMemberId } = useActiveMember();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -78,23 +81,34 @@ export function Header({ members, isLoading }: HeaderProps) {
         {!isLoading && members.length > 0 && (
           <div className="hidden md:flex items-center gap-1.5 mr-2">
             <TooltipProvider>
-              {members.map((member) => (
-                <Tooltip key={member.id}>
-                  <TooltipTrigger asChild>
-                    <button
-                      className="rounded-full transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                      aria-label={`${member.name} (${member.role === "parent" ? "Elternteil" : "Kind"})`}
-                    >
-                      <MemberAvatar member={member} size="sm" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      {member.name} ({member.role === "parent" ? "Elternteil" : "Kind"})
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
+              {members.map((member) => {
+                const isActive = activeMember?.id === member.id;
+                return (
+                  <Tooltip key={member.id}>
+                    <TooltipTrigger asChild>
+                      <button
+                        className={cn(
+                          "rounded-full transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                          isActive
+                            ? "ring-2 ring-primary ring-offset-2 scale-110"
+                            : "opacity-60 hover:opacity-100"
+                        )}
+                        onClick={() => setActiveMemberId(member.id)}
+                        aria-label={`${member.name} auswaehlen (${member.role === "parent" ? "Elternteil" : "Kind"})${isActive ? " - aktiv" : ""}`}
+                        aria-pressed={isActive}
+                      >
+                        <MemberAvatar member={member} size="sm" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        {member.name} ({member.role === "parent" ? "Elternteil" : "Kind"})
+                        {isActive ? " - aktiv" : ""}
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
             </TooltipProvider>
           </div>
         )}
@@ -154,22 +168,36 @@ export function Header({ members, isLoading }: HeaderProps) {
                 Familienmitglieder
               </p>
               <div className="flex flex-col gap-1">
-                {members.map((member) => (
-                  <div
-                    key={member.id}
-                    className="flex items-center gap-3 rounded-md px-3 py-2"
-                  >
-                    <MemberAvatar member={member} size="sm" />
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        {member.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {member.role === "parent" ? "Elternteil" : "Kind"}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                {members.map((member) => {
+                  const isActive = activeMember?.id === member.id;
+                  return (
+                    <button
+                      key={member.id}
+                      className={cn(
+                        "flex items-center gap-3 rounded-md px-3 py-2 text-left transition-colors hover:bg-accent",
+                        isActive && "bg-accent"
+                      )}
+                      onClick={() => setActiveMemberId(member.id)}
+                      aria-pressed={isActive}
+                      aria-label={`${member.name} auswaehlen${isActive ? " - aktiv" : ""}`}
+                    >
+                      <MemberAvatar member={member} size="sm" />
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium truncate">
+                          {member.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {member.role === "parent" ? "Elternteil" : "Kind"}
+                        </p>
+                      </div>
+                      {isActive && (
+                        <span className="ml-auto text-xs text-primary font-medium">
+                          Aktiv
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

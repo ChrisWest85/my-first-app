@@ -27,6 +27,9 @@ Das Familiendashboard ist eine zentrale Webanwendung für Familien, die einen ge
 | P1 | Einkaufsliste | Planned |
 | P1 | Familien-Notizen | Planned |
 | P1 | Verhaltensprotokoll | Planned |
+| P1 | Kanban Board | Planned |
+| P1 | Punkte & Belohnungen | Planned |
+| P1 | Kinder-Design-Theme | Planned |
 
 ## Success Metrics
 - Alle Familienmitglieder nutzen die App täglich zur Koordination
@@ -43,7 +46,6 @@ Das Familiendashboard ist eine zentrale Webanwendung für Familien, die einen ge
 ## Non-Goals
 - Keine Cloud-Synchronisation zwischen Geräten (kein Backend im MVP)
 - Kein Benachrichtigungssystem (Push-Notifications, E-Mail)
-- Kein Punkte-/Belohnungssystem (kann später kommen)
 - Keine Chat-Funktion in Echtzeit
 - Keine Kalender-Integration mit externen Diensten (Google Calendar etc.)
 

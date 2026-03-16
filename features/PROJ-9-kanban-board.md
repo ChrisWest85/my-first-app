@@ -1,8 +1,21 @@
 # PROJ-9: Kanban Board
 
-## Status: Planned
+## Status: In Review
 **Created:** 2026-03-16
 **Last Updated:** 2026-03-16
+
+### Implementation Notes (Frontend)
+- Installed `@hello-pangea/dnd` for drag-and-drop and `calendar` shadcn component for date picker
+- Created `useKanban` hook with full CRUD for boards, lists, and cards (localStorage-based)
+- Board overview with grid layout, create/rename/delete boards
+- Board detail with horizontal scrolling kanban columns, drag-and-drop cards
+- Card form dialog with title, description, due date (calendar picker), member assignment, and points (-10 to +10)
+- Mobile fallback: "In Liste verschieben" dropdown shown in card edit dialog on mobile
+- Completed cards toggle (hide/show per list), overdue date highlighting
+- Cascade cleanup: deleting a family member unassigns their kanban cards (keeps cards)
+- Navigation: added Kanban link to header and home page overview
+- Visibility rules: parents see all boards, children see family boards + own personal boards
+- All confirmation dialogs for destructive actions (delete board/list/card)
 
 ## Dependencies
 - Requires: PROJ-1 (Familienmitglieder-Verwaltung) — Karten werden Mitgliedern zugewiesen

@@ -22,7 +22,7 @@
 | PROJ-8 | Verhaltensprotokoll | Planned | [PROJ-8-behavior-tracking.md](PROJ-8-behavior-tracking.md) | 2026-03-15 |
 | PROJ-9 | Kanban Board | In Review | [PROJ-9-kanban-board.md](PROJ-9-kanban-board.md) | 2026-03-16 |
 | PROJ-10 | Punkte & Belohnungen | Planned | [PROJ-10-points-and-rewards.md](PROJ-10-points-and-rewards.md) | 2026-03-16 |
-| PROJ-11 | Kinder-Design-Theme | In Progress | [PROJ-11-kids-design-theme.md](PROJ-11-kids-design-theme.md) | 2026-03-16 |
+| PROJ-11 | Kinder-Design-Theme | In Review | [PROJ-11-kids-design-theme.md](PROJ-11-kids-design-theme.md) | 2026-03-16 |
 
 <!-- Add features above this line -->
 

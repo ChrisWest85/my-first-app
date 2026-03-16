@@ -10,6 +10,7 @@ import {
 import { MemberFormDialog } from "./MemberFormDialog";
 import { Users } from "lucide-react";
 import { useState } from "react";
+import type { FamilyMember } from "@/hooks/useFamilyMembers";
 
 interface OnboardingDialogProps {
   open: boolean;
@@ -18,7 +19,7 @@ interface OnboardingDialogProps {
     role: "parent" | "child";
     color: string;
     avatar?: string;
-  }) => { success: boolean; error?: string };
+  }) => { success: boolean; error?: string; member?: FamilyMember };
   hasDuplicateName: (name: string, excludeId?: string) => boolean;
 }
 

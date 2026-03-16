@@ -1,8 +1,19 @@
 # PROJ-11: Kinder-Design-Theme
 
-## Status: In Progress
+## Status: In Review
 **Created:** 2026-03-16
 **Last Updated:** 2026-03-16
+
+## Implementation Notes (Frontend)
+- Created `ActiveMemberContext` for tracking the currently selected member (header avatar click)
+- Created `ThemeContext` for reading/writing `familyThemes` in localStorage
+- Created `ThemeApplier` component that sets CSS class on `<html>` based on active member's theme
+- Added `theme-kids-vivid` and `theme-kids-soft` CSS custom property overrides in `globals.css`
+- Updated `AppShell` to wrap with `ThemeProvider` and `ActiveMemberProvider`
+- Updated `Header` to make avatars clickable with active state highlighting (desktop + mobile)
+- Updated `MemberFormDialog` to include theme selection (3 radio-style options)
+- Updated home page with themed greetings and contextual emojis per theme
+- Theme cleanup on member deletion integrated into `FamilyMembersContext`
 
 ## Dependencies
 - Requires: PROJ-1 (Familienmitglieder-Verwaltung) — Theme-Einstellung wird im Mitgliedsprofil gespeichert

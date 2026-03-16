@@ -75,6 +75,56 @@
   }
 }
 
+/* ── Kinder-Theme: Bunt & Verspielt ─────────────────────────────────── */
+.theme-kids-vivid {
+  --background: 280 60% 97%;
+  --foreground: 270 30% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 270 30% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 270 30% 15%;
+  --primary: 270 70% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 35 95% 65%;
+  --secondary-foreground: 30 60% 15%;
+  --muted: 280 40% 93%;
+  --muted-foreground: 270 15% 40%;
+  --accent: 150 60% 55%;
+  --accent-foreground: 150 50% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 270 30% 85%;
+  --input: 270 30% 85%;
+  --ring: 270 70% 55%;
+  --radius: 1rem;
+  font-size: 106.25%;
+}
+
+/* ── Kinder-Theme: Sanft & Freundlich ──────────────────────────────── */
+.theme-kids-soft {
+  --background: 160 40% 97%;
+  --foreground: 200 20% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 200 20% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 200 20% 15%;
+  --primary: 200 60% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 340 50% 80%;
+  --secondary-foreground: 340 40% 20%;
+  --muted: 160 30% 93%;
+  --muted-foreground: 200 15% 40%;
+  --accent: 50 70% 70%;
+  --accent-foreground: 50 50% 15%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 200 25% 85%;
+  --input: 200 25% 85%;
+  --ring: 200 60% 55%;
+  --radius: 1rem;
+  font-size: 106.25%;
+}
+
 @layer base {
   * {
     @apply border-border;
